@@ -1,8 +1,4 @@
 // Lab 34 | Toma Dimov | COMSC 210 
-////STEP 1
-//through the prompt engineering, transform the code by adding DFS and BFS
-//write the driver program to excercies code
-//commit: "Step 1 Complete"
 
 /////STEP 2
 //Change the graph by deletign at least two nodes and adding at least six nodes, change the weights as well.
@@ -32,6 +28,8 @@ const int SIZE = 7;
 
 struct Edge {
     int src, dest, weight;
+    public:
+    void set_weight(int w){weight = w;}
 };
 
 typedef pair<int, int> Pair;  // Creates alias 'Pair' for the pair<int,int> data type
@@ -96,6 +94,7 @@ public:
         cout<<endl;
     }
 
+    //Depth First Search
     void DFS(int initial){
         cout<<"DFS starting from vertex"<< initial<<":\n";
         stack<int> next; //start by declaring a stack
@@ -121,6 +120,7 @@ public:
 };
 
 int main() {
+    srand(time(NULL));
     // Creates a vector of graph edges/weights
     vector<Edge> edges = {
         // (x, y, w) —> edge from x to y having weight w
@@ -136,6 +136,17 @@ int main() {
     graph.BFS(0);
     graph.DFS(0);
 
+    //change the graph by deleting two nodes and adding six new ones. change the weights
+    edges.pop_back();
+    edges.pop_back();
+    edges[1].set_weight(4);
+    edges[6].set_weight(12);
+    edges.push_back({4,2,1});
+    edges.push_back();
+    edges.push_back();
+    edges.push_back();
+    edges.push_back();
+    edges.push_back();
     return 0;
 }
 
