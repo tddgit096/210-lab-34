@@ -24,6 +24,7 @@
 
 #include <iostream>
 #include <vector>
+#include <queue>
 using namespace std;
 
 const int SIZE = 7;
@@ -72,9 +73,20 @@ public:
 
     //Breadth First Search
     void BFS(){
-
+        queue<Pair> to_visit;//start by declaring a queue to keep track of the next location to visit:
+        for (int i = 0; i < adjList.size(); i++) {
+            cout << i << " --> ";
+            for (Pair v : adjList[i])
+                to_visit.push(v);
+            cout << endl;
+        adjList[0]  ;  //default to zero, the start
+        while(to_visit){
+            
+        }
+        
+        cout<<
+            //start by marking the source node as visited.
         cout<<"BFS starting from vertex 0:\n";
-        for(Pair v : /**/){
             cout << v.first;
     }
 
