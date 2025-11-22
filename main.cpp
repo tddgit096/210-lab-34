@@ -72,12 +72,20 @@ public:
     //Breadth First Search
     void BFS(int initial){
         cout<<"BFS starting from vertex 0:\n";
-        queue<Pair> visit;//start by declaring a queue to keep track of the next location to visit:
-        bool visited[adjList.size()]={false};
+        queue<Pair> que;//start by declaring a queue to keep track of the next location to visit:
+        vector<bool> visited(false);
+        //initial visit
+        visited[initial] = true;
+        que.push(adjList[initial])
         cout<<initial<<" ";
-        for(Pair v: adjList[initial]){
-            if()
-            visit.push(v);
+        //iteration
+        while(total_visited<adjList.size()){ 
+            for(Pair v: adjList[initial]){
+                if(!visited[v.first]){   //if not yet visited
+                    visit.push(v);      //add it to the queue
+                    total_visited++;
+                }
+            }
         }
         //visit.push(adjList[1][0]);    
         //visited[0] = true;
