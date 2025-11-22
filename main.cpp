@@ -121,6 +121,17 @@ public:
             }
         }
     }
+
+    //compare edges:
+
+    bool compare_Edges(const Edge& a, const Edge& b) {
+    return a.weight < b.weight;
+
+    //Minimal spanning tree, Kruskal's Algorithm
+    void MST(){
+        vector<int> parent, rank;
+        
+    }
 };
 
 int main() {
@@ -153,4 +164,3 @@ int main() {
     edges.push_back({3,7,18});
     return 0;
 }
-
