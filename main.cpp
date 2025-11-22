@@ -70,17 +70,21 @@ public:
     }
 
     //Breadth First Search
-    void BFS(){
-        queue<Pair> visit;//start by declaring a queue to keep track of the next location to visit:
-        bool visited[adjlist.size()];
-        visit.push(adjList[0][0]);     //initialization, add source node to queue
-        //iterations:
-        for (int i = 0; i < adjList.size(); i++) {  
-            for (Pair v : adjList[i]){
-                visivisitted.push(v);
-            }
-        }
+    void BFS(int initial){
         cout<<"BFS starting from vertex 0:\n";
+        queue<Pair> visit;//start by declaring a queue to keep track of the next location to visit:
+        bool visited[adjList.size()]={false};
+        cout<<initial<<" ";
+        for(Pair v: adjList[initial]){
+            if()
+            visit.push(v);
+        }
+        //visit.push(adjList[1][0]);    
+        //visited[0] = true;
+        //iterations:
+           }
+        }
+
         while(visit.size()){
             cout<< visit.front().first<<" ";
             visit.pop();
