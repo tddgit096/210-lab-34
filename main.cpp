@@ -25,6 +25,7 @@
 #include <iostream>
 #include <vector>
 #include <queue>
+#include <stack>
 using namespace std;
 
 const int SIZE = 7;
@@ -71,7 +72,7 @@ public:
 
     //Breadth First Search
     void BFS(int initial){
-        cout<<"BFS starting from vertex 0:\n";
+        cout<<"BFS starting from vertex"<< initial<<":\n";
         queue<int> next;//start by declaring a queue to keep track of the next location to visit:
         vector<bool> visited(adjList.size(),false);
         //initial visit
@@ -95,10 +96,27 @@ public:
         cout<<endl;
     }
 
-    void DFS(){
-        
-        cout<<"BFS starting from vertex 0:\n";
+    void DFS(int initial){
+        cout<<"DFS starting from vertex"<< initial<<":\n";
+        stack<int> next; //start by declaring a stack
+        vector<bool> visited(adjList.size(),false);
+        //initial visit
+        visited[initial] = true;
+        next.push(initial);
+        //iteration
+        while(next.size()>0){ //while not empty
+            int x = next.top();
+            cout<<x<<" ";
+            next.pop();
 
+            for(Pair v: adjList[x]){
+                int z = v.first;
+                if(!visited[z]){ //has it been visited?
+                    next.push(z);
+                    visited[z]=true;
+                }
+            }
+        }
     }
 };
 
@@ -116,6 +134,7 @@ int main() {
     graph.printGraph();
 
     graph.BFS(0);
+    graph.DFS(0);
 
     return 0;
 }
