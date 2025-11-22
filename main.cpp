@@ -17,7 +17,7 @@
 
 //Step 6
 //Place a menu with all funcionality.
-
+#include <iomanip>
 #include <iostream>
 #include <vector>
 #include <queue>
@@ -59,18 +59,18 @@ public:
 
     // Print the graph's adjacency list
     void printGraph() {
-        cout << "Graph's adjacency list:" << endl;
+        cout << "COUNTY BUS NETWORK:" << endl<<"===========================================\n";
         for (int i = 0; i < adjList.size(); i++) {
-            cout << i << " --> ";
-            for (Pair v : adjList[i])
-                cout << "(" << v.first << ", " << v.second << ") ";
-            cout << endl;
+            cout <<"Stop "<< i << " has bus route to:\n";
+            for (Pair v : adjList[i]){
+                cout << "\t -> Stop" <<setw(2)<< v.first << "( Time: " << v.second << " minutes.)\n";
+            }
         }
     }
 
     //Breadth First Search
     void BFS(int initial){
-        cout<<"BFS starting from vertex "<< initial<<":\n";
+        cout<<"Locate Possible Routes from starting Route "<< initial<<":\n";
         queue<int> next;//start by declaring a queue to keep track of the next location to visit:
         vector<bool> visited(adjList.size(),false);
         //initial visit
