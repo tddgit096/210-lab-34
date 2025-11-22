@@ -73,21 +73,23 @@ public:
 
     //Breadth First Search
     void BFS(){
-        queue<Pair> to_visit;//start by declaring a queue to keep track of the next location to visit:
-        for (int i = 0; i < adjList.size(); i++) {
-            cout << i << " --> ";
+        queue<Pair> visited;//start by declaring a queue to keep track of the next location to visit:
+        visited.        //initialization
+
+        visited.push
+        for (int i = 0; i < adjList.size(); i++) {  
             for (Pair v : adjList[i])
-                to_visit.push(v);
-            cout << endl;
-        adjList[0]  ;  //default to zero, the start
-        while(to_visit){
-            
-        }
+
         
-        cout<<
-            //start by marking the source node as visited.
+
+
+                visited.push(v);
+            cout << endl;\
         cout<<"BFS starting from vertex 0:\n";
-            cout << v.first;
+        pop.adjList[0];  //start by marking the source node as visited.
+        while(visit.size()>0){
+
+        }  
     }
 
     void DFS(){
