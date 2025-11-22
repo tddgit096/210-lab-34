@@ -24,7 +24,7 @@
 #include <stack>
 using namespace std;
 
-const int SIZE = 7;
+const int SIZE = 9;
 
 struct Edge {
     int src, dest, weight;
@@ -70,7 +70,7 @@ public:
 
     //Breadth First Search
     void BFS(int initial){
-        cout<<"BFS starting from vertex"<< initial<<":\n";
+        cout<<"BFS starting from vertex "<< initial<<":\n";
         queue<int> next;//start by declaring a queue to keep track of the next location to visit:
         vector<bool> visited(adjList.size(),false);
         //initial visit
@@ -96,7 +96,7 @@ public:
 
     //Depth First Search
     void DFS(int initial){
-        cout<<"DFS starting from vertex"<< initial<<":\n";
+        cout<<"DFS starting from vertex "<< initial<<":\n";
         stack<int> next; //start by declaring a stack
         vector<bool> visited(adjList.size(),false);
         //initial visit
@@ -124,7 +124,7 @@ int main() {
     // Creates a vector of graph edges/weights
     vector<Edge> edges = {
         // (x, y, w) —> edge from x to y having weight w
-        {0,1,12},{0,2,8},{0,3,21},{2,3,6},{2,6,2},{5,6,6},{4,5,9},{2,4,4},{2,5,5}
+        {0,1,12},{0,2,8},{0,3,21},{2,3,6},{2,6,2},{5,6,6},{4,5,9},{2,4,4},{2,5,5},{7,8,1},{8,3,4}
     };
 
     // Creates graph
@@ -141,12 +141,12 @@ int main() {
     edges.pop_back();
     edges[1].set_weight(4);
     edges[6].set_weight(12);
-    edges.push_back({4,2,1});
-    edges.push_back();
-    edges.push_back();
-    edges.push_back();
-    edges.push_back();
-    edges.push_back();
+    edges.push_back({7,8,1});
+    edges.push_back({0,6,12});
+    edges.push_back({3,5,9});
+    edges.push_back({4,6,20});
+    edges.push_back({1,4,12});
+    edges.push_back({3,7,18});
     return 0;
 }
 
