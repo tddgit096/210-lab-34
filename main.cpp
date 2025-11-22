@@ -73,11 +73,10 @@ public:
     void BFS(int initial){
         cout<<"BFS starting from vertex 0:\n";
         queue<int> next;//start by declaring a queue to keep track of the next location to visit:
-        vector<bool> visited(false);
+        vector<bool> visited(adjList.size(),false);
         //initial visit
         visited[initial] = true;
         next.push(initial);
-        cout<< initial<<" ";
         //iteration
         while(next.size()>0){ //while not empty
             //check who is next.
@@ -85,20 +84,15 @@ public:
             cout<<x<<" ";
             next.pop();
 
-            for(Pair v: adjList[initial]){
-                int z = v.first
+            for(Pair v: adjList[x]){
+                int z = v.first;
+                if(!visited[z]){ //has it been visited?
+                    next.push(z);
+                    visited[z]=true;
+                }
             }
         }
-        //visit.push(adjList[1][0]);    
-        //visited[0] = true;
-        //iterations:
-           }
-        }
-
-        while(visit.size()){
-            cout<< visit.front().first<<" ";
-            visit.pop();
-        }
+        cout<<endl;
     }
 
     void DFS(){
@@ -121,7 +115,7 @@ int main() {
     // Prints adjacency list representation of graph
     graph.printGraph();
 
-    graph.BFS();
+    graph.BFS(0);
 
     return 0;
 }
