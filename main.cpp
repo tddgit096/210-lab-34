@@ -63,14 +63,15 @@ public:
         for (int i = 0; i < adjList.size(); i++) {
             cout <<"Stop "<< i << " has bus route to:\n";
             for (Pair v : adjList[i]){
-                cout << "\t -> Stop" <<setw(2)<< v.first << "( Time: " << v.second << " minutes.)\n";
+                cout << "\t -> Stop" <<setw(2)<< v.first << " (Time: " << v.second << " minutes.)\n";
             }
         }
     }
 
     //Breadth First Search
     void BFS(int initial){
-        cout<<"Locate Possible Routes from starting Route "<< initial<<":\n";
+        cout<<"Test Passenger takes a random route via Breadth First Algorithm until reaching every stop, starting from Stop "<< initial<<":\n";
+        cout<<"===========================================\n";
         queue<int> next;//start by declaring a queue to keep track of the next location to visit:
         vector<bool> visited(adjList.size(),false);
         //initial visit
@@ -80,12 +81,13 @@ public:
         while(next.size()>0){ //while not empty
             //check who is next.
             int x = next.front();
-            cout<<x<<" ";
+            cout<<"Passenger arrives at Stop "<< x<<":\n";
             next.pop();
 
             for(Pair v: adjList[x]){
                 int z = v.first;
                 if(!visited[z]){ //has it been visited?
+                    cout<<"\t->Passenger could catch a bus to Stop "<<z<<endl;
                     next.push(z);
                     visited[z]=true;
                 }
@@ -96,7 +98,8 @@ public:
 
     //Depth First Search
     void DFS(int initial){
-        cout<<"DFS starting from vertex "<< initial<<":\n";
+        cout<<"Test Passenger takes a random route via Depth First Algorithm until reaching every stop, starting from Stop "<< initial<<":\n";
+        cout<<"===========================================\n";
         stack<int> next; //start by declaring a stack
         vector<bool> visited(adjList.size(),false);
         //initial visit
@@ -105,12 +108,13 @@ public:
         //iteration
         while(next.size()>0){ //while not empty
             int x = next.top();
-            cout<<x<<" ";
+            cout<<"Passenger arrives at Stop "<< x<<":\n";
             next.pop();
 
             for(Pair v: adjList[x]){
                 int z = v.first;
                 if(!visited[z]){ //has it been visited?
+                    cout<<"\t->Passenger could catch a bus to Stop "<<z<<endl;
                     next.push(z);
                     visited[z]=true;
                 }
