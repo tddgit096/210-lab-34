@@ -37,8 +37,6 @@ typedef pair<int, int> Pair;  // Creates alias 'Pair' for the pair<int,int> data
 
 class Graph {
 public:
-    void BFS();
-    void DFS();
     // a vector of vectors of Pairs to represent an adjacency list
     vector<vector<Pair>> adjList;
 
@@ -73,23 +71,20 @@ public:
 
     //Breadth First Search
     void BFS(){
-        queue<Pair> visited;//start by declaring a queue to keep track of the next location to visit:
-        visited.        //initialization
-
-        visited.push
+        queue<Pair> visit;//start by declaring a queue to keep track of the next location to visit:
+        bool visited[adjlist.size()];
+        visit.push(adjList[0][0]);     //initialization, add source node to queue
+        //iterations:
         for (int i = 0; i < adjList.size(); i++) {  
-            for (Pair v : adjList[i])
-
-        
-
-
-                visited.push(v);
-            cout << endl;\
+            for (Pair v : adjList[i]){
+                visivisitted.push(v);
+            }
+        }
         cout<<"BFS starting from vertex 0:\n";
-        pop.adjList[0];  //start by marking the source node as visited.
-        while(visit.size()>0){
-
-        }  
+        while(visit.size()){
+            cout<< visit.front().first<<" ";
+            visit.pop();
+        }
     }
 
     void DFS(){
@@ -111,6 +106,8 @@ int main() {
 
     // Prints adjacency list representation of graph
     graph.printGraph();
+
+    graph.BFS();
 
     return 0;
 }
