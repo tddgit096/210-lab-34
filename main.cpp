@@ -22,6 +22,7 @@
 #include <vector>
 #include <queue>
 #include <stack>
+#include <algorithm>
 using namespace std;
 
 const int SIZE = 9;
@@ -33,6 +34,10 @@ struct Edge {
 };
 
 typedef pair<int, int> Pair;  // Creates alias 'Pair' for the pair<int,int> data type
+
+bool comparator(vector<int> &a,vector<int> &b){
+   return a[2] < b[2]; 
+}
 
 class Graph {
 public:
@@ -122,23 +127,22 @@ public:
         }
     }
 
-    //compare edges:
-
-    bool compare_Edges(const Edge& a, const Edge& b) {
-    return a.weight < b.weight;
-
     //Minimal spanning tree, Kruskal's Algorithm
     void MST(){
         vector<int> parent, rank;
-        
+        vector<Edge> tempList;
+        copy(adjList.begin(),adjList.end(), back_inserter(tempList));
         //sort all edges in a non-decreasing order of their weight
+        sort(adjList.begin(),adjList.end(),comparator);
+        //traverse edges in sorted order
+        int cost = 0, count = 0;
+        for(auto &e : adjList)
+        
         //pick the smallest edge
             //check if it forms a cycle with the spanning tree formed so far
                 //no cycle? include this edge
                 //else? discard it
         //repeat step two until there are v-1 edges in the spanning tree
-
-
 
 
 
