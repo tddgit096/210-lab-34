@@ -22,6 +22,40 @@ bool comparator(vector<int> &a,vector<int> &b){
 }
 
 class Graph {
+private:
+  // Union-Find helper functions for Kruskal's algorithm
+    int find(vector<int> &parent, int i) {
+        if (parent[i] != i) {
+            parent[i] = find(parent, parent[i]); // Path compression
+        }
+        return parent[i];
+    }
+    
+    void unionSets(vector<int> &parent, vector<int> &rank, int x, int y) {
+        int rootX = find(parent, x);
+        int rootY = find(parent, y);
+        
+        // Union by rank
+        if (rank[rootX] < rank[rootY]) {
+            parent[rootX] = rootY;
+        } else if (rank[rootX] > rank[rootY]) {
+            parent[rootY] = rootX;
+        } else {
+            parent[rootY] = rootX;
+            rank[rootX]++;
+        }
+    }
+
+    void dfs(int u, vector<bool> &visited) {
+        visited[u] = true;
+        for (auto &neighbor : adjList[u]) {
+            int v = neighbor.first;
+            if (!visited[v]) {
+                dfs(v, visited);
+            }
+        }
+    }
+
 public:
     // a vector of vectors of Pairs to represent an adjacency list
     vector<vector<Pair>> adjList;
@@ -44,7 +78,7 @@ public:
         }
     }
 
- vector<int> shortestPath(int startNode) {
+    vector<int> shortestPath(int startNode) {
         // Create a priority queue (min-heap) to store vertices
         priority_queue<Pair, vector<Pair>, greater<Pair>> pq;
         
@@ -75,7 +109,6 @@ public:
                 }
             }
         }
-        
         return dist;
     }
 
@@ -83,14 +116,94 @@ public:
     void printShortestPaths(int startNode) {
         vector<int> distances = shortestPath(startNode);
         
-        cout << "Shortest distances from node " << startNode << ":\n";
+        cout << "Shortest distances from Bus Stop " << startNode << ":\n";
         for (int i = 0; i < SIZE; i++) {
             if (distances[i] == INTMAX) {
-                cout << "Node " << i << ": Unreachable\n";
+                cout << "Bus Stop "<<startNode<<" -> " << i << " : Unreachable\n";
             } else {
-                cout << "Node " << i << ": " << distances[i] << "\n";
+                cout << "Bus Stop "<<startNode<<" -> "  << i << " : " << distances[i] <<" minutes."<< "\n";
             }
         }
+    }
+
+    vector<Edge> kruskalMST() {
+        vector<Edge> mst;
+        vector<Edge> allEdges;
+        
+        // Collect all edges from adjacency list
+        for (int u = 0; u < SIZE; u++) {
+            for (auto &neighbor : adjList[u]) {
+                int v = neighbor.first;
+                int weight = neighbor.second;
+                // To avoid duplicates in undirected graph
+                if (u < v) {
+                    Edge edge;
+                    edge.src = u;
+                    edge.dest = v;
+                    edge.weight = weight;
+                    allEdges.push_back(edge);
+                }
+            }
+        }
+        // Sort edges by weight
+        sort(allEdges.begin(), allEdges.end(), 
+             [](const Edge &a, const Edge &b) { return a.weight < b.weight; });
+        // Union-Find data structure
+        vector<int> parent(SIZE);
+        vector<int> rank(SIZE, 0);
+        // Initialize Union-Find
+        for (int i = 0; i < SIZE; i++) {
+            parent[i] = i;
+        }
+        // Process edges in sorted order
+        for (auto &edge : allEdges) {
+            int rootSrc = find(parent, edge.src);
+            int rootDest = find(parent, edge.dest);
+            
+            // If including this edge doesn't cause cycle
+            if (rootSrc != rootDest) {
+                mst.push_back(edge);
+                unionSets(parent, rank, rootSrc, rootDest);
+            }
+            
+            // Stop when we have V-1 edges
+            if (mst.size() == SIZE - 1) break;
+        }
+        
+        return mst;
+    }
+
+    // Utility function to print MST
+    void printMST(const vector<Edge> &mst, const string &algorithm) {
+        cout << algorithm << " Minimum Spanning Tree:\n";
+        int totalWeight = 0;
+        
+        for (const auto &edge : mst) {
+            cout <<"Bus Stop from "<< edge.src << " to " << edge.dest << " with travel time:  " << edge.weight << " minutes. \n";
+            totalWeight += edge.weight;
+        }
+        
+        cout << "Total weight: " << totalWeight << "\n\n";
+    }
+
+    // Function to get total weight of MST
+    int getMSTWeight(const vector<Edge> &mst) {
+        int totalWeight = 0;
+        for (const auto &edge : mst) {
+            totalWeight += edge.weight;
+        }
+        return totalWeight;
+    }
+
+    // Check if graph is connected (prerequisite for spanning tree)
+    bool isConnected() {
+        vector<bool> visited(SIZE, false);
+        dfs(0, visited);
+        
+        for (bool v : visited) {
+            if (!v) return false;
+        }
+        return true;
     }
 
     // Print the graph's adjacency list
@@ -166,7 +279,8 @@ void menu(Graph graph){
         cout<<"[1] Display Bus Stops and Routes. \n";
         cout<<"[2] Test Passenger Route (BFS). \n";
         cout<<"[3] Test Passenger Route (DFS). \n";
-        cout<<"[4] Display Shortest Path from Stop. \n";
+        cout<<"[4] Display Shortest Path from a Given Stop. \n";
+        cout<<"[5] Print Spanning Tree for Bus Network.\n";
         cout<<"[0] Exit. \n";
         cout<<"Enter your choice: ";
         cin>>input;
@@ -201,6 +315,11 @@ void menu(Graph graph){
             cin>>input2;
             int initial = stoi(input2);
             graph.printShortestPaths(initial);
+            break;
+        }
+        case 5:{
+            vector<Edge> kruskalTree = graph.kruskalMST();
+            graph.printMST(kruskalTree,"[Kruskal Algorithm]");
             break;
         }
         default:
