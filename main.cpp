@@ -7,7 +7,7 @@
 #include <algorithm>
 using namespace std;
 
-const int SIZE = 9;
+const int SIZE = 9, INTMAX = 90000;
 
 struct Edge {
     int src, dest, weight;
@@ -43,6 +43,37 @@ public:
             adjList[dest].push_back(make_pair(src, weight));
         }
     }
+    vector<int> shortestPath(int startNode) {
+        // Create a priority queue (min-heap) to store vertices
+        priority_queue<Pair, vector<Pair>, greater<Pair>> pq;
+
+        // Create a vector for distances and initialize all distances as infinite (INT_MAX)
+        vector<int> dist(SIZE, INTMAX);
+
+        // Insert source itself in priority queue and initialize its distance as 0
+        pq.push(make_pair(0, startNode));
+        dist[startNode] = 0;
+
+        // Looping till priority queue becomes empty (or all distances are finalized)
+        while (!pq.empty()) {
+            // The first vertex in pair is the minimum distance vertex
+            // extract it from priority queue. Vertex label is stored in second of pair
+            int u = pq.top().second;
+            pq.pop();
+            
+            // Get all adjacent vertices of u
+            for (auto &neighbor : adjList[u]) {
+                int v = neighbor.first;
+                int weight = neighbor.second;
+                
+                // If there is a shorter path to v through u
+                if (dist[v] > dist[u] + weight) {
+                    // Update distance of v
+                    dist[v] = dist[u] + weight;
+                    pq.push(make_pair(dist[v], v));
+        }
+    }
+
 
     // Print the graph's adjacency list
     void printGraph() {
