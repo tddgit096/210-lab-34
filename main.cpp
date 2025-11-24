@@ -169,7 +169,6 @@ public:
             // Stop when we have V-1 edges
             if (mst.size() == SIZE - 1) break;
         }
-        
         return mst;
     }
 
