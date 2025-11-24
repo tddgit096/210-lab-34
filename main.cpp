@@ -131,6 +131,19 @@ public:
     void MST(){
         vector<int> parent, rank;
         
+        //sort all edges in a non-decreasing order of their weight
+        //pick the smallest edge
+            //check if it forms a cycle with the spanning tree formed so far
+                //no cycle? include this edge
+                //else? discard it
+        //repeat step two until there are v-1 edges in the spanning tree
+
+
+
+
+
+
+
     }
 };
 
