@@ -153,7 +153,7 @@ public:
 */
 };
 
-void menu(){
+void menu(Graph graph){
     while(true){
         string input;
         cout<<"Bus Network menu:\n";
@@ -168,13 +168,30 @@ void menu(){
         {
         case 0:
             return;
-        case 1:
-            cout<<
-            BFS
-        default:
+        case 1:{
+            graph.printGraph();
             break;
         }
-
+        case 2:{
+            string input2;
+            cout<<"Starting stop: ";
+            cin>>input2;
+            int initial = stoi(input2);
+            graph.BFS(initial);
+            break;
+        }
+        case 3:{
+            string input2;
+            cout<<"Starting stop: ";
+            cin>>input2;
+            int initial = stoi(input2);
+            graph.DFS(initial);
+            break;
+        }
+        default:
+            cout<<"Not a valid option, try again.\n";
+            break;
+        }
     }
 }
 
@@ -189,12 +206,6 @@ int main() {
     // Creates graph
     Graph graph(edges);
 
-    // Prints adjacency list representation of graph
-    graph.printGraph();
-
-    graph.BFS(0);
-    graph.DFS(0);
-
     //change the graph by deleting two nodes and adding six new ones. change the weights
     edges.pop_back();
     edges.pop_back();
@@ -206,5 +217,6 @@ int main() {
     edges.push_back({4,6,20});
     edges.push_back({1,4,12});
     edges.push_back({3,7,18});
+    menu(graph);
     return 0;
 }
