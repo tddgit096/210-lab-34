@@ -126,17 +126,22 @@ public:
             }
         }
     }
-
+/*
     //Minimal spanning tree, Kruskal's Algorithm
     void MST(){
+        int initial = 0;//lets start at the beginning
         vector<int> parent, rank;
-        vector<Edge> tempList;
+        vector<Edge> tempList; //temp list so we don't modify the original
         copy(adjList.begin(),adjList.end(), back_inserter(tempList));
         //sort all edges in a non-decreasing order of their weight
-        sort(adjList.begin(),adjList.end(),comparator);
+        sort(tempList.begin(),tempList.end(),comparator);
         //traverse edges in sorted order
         int cost = 0, count = 0;
-        for(auto &e : adjList)
+        for(auto &e : tempList){
+
+            //make sure there is no cycle:
+
+        }
         
         //pick the smallest edge
             //check if it forms a cycle with the spanning tree formed so far
@@ -144,12 +149,34 @@ public:
                 //else? discard it
         //repeat step two until there are v-1 edges in the spanning tree
 
+    }
+*/
+};
 
-
-
+void menu(){
+    while(true){
+        string input;
+        cout<<"Bus Network menu:\n";
+        cout<<"[1] Display Bus Stops and Routes\n";
+        cout<<"[2] Test Passenger Route (BFS) \n";
+        cout<<"[3] Test Passenger Route (DFS) \n";
+        cout<<"[0] Exit\n";
+        cout<<"Enter your choice: ";
+        cin>>input;
+        int result = stoi(input);
+        switch (result)
+        {
+        case 0:
+            return;
+        case 1:
+            cout<<
+            BFS
+        default:
+            break;
+        }
 
     }
-};
+}
 
 int main() {
     srand(time(NULL));
