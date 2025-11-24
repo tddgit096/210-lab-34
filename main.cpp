@@ -43,17 +43,18 @@ public:
             adjList[dest].push_back(make_pair(src, weight));
         }
     }
-    vector<int> shortestPath(int startNode) {
+
+ vector<int> shortestPath(int startNode) {
         // Create a priority queue (min-heap) to store vertices
         priority_queue<Pair, vector<Pair>, greater<Pair>> pq;
-
+        
         // Create a vector for distances and initialize all distances as infinite (INT_MAX)
         vector<int> dist(SIZE, INTMAX);
-
+        
         // Insert source itself in priority queue and initialize its distance as 0
         pq.push(make_pair(0, startNode));
         dist[startNode] = 0;
-
+        
         // Looping till priority queue becomes empty (or all distances are finalized)
         while (!pq.empty()) {
             // The first vertex in pair is the minimum distance vertex
@@ -71,9 +72,26 @@ public:
                     // Update distance of v
                     dist[v] = dist[u] + weight;
                     pq.push(make_pair(dist[v], v));
+                }
+            }
         }
+        
+        return dist;
     }
 
+    // Utility function to print shortest paths
+    void printShortestPaths(int startNode) {
+        vector<int> distances = shortestPath(startNode);
+        
+        cout << "Shortest distances from node " << startNode << ":\n";
+        for (int i = 0; i < SIZE; i++) {
+            if (distances[i] == INTMAX) {
+                cout << "Node " << i << ": Unreachable\n";
+            } else {
+                cout << "Node " << i << ": " << distances[i] << "\n";
+            }
+        }
+    }
 
     // Print the graph's adjacency list
     void printGraph() {
@@ -139,41 +157,17 @@ public:
             }
         }
     }
-/*
-    //Minimal spanning tree, Kruskal's Algorithm
-    void MST(){
-        int initial = 0;//lets start at the beginning
-        vector<int> parent, rank;
-        vector<Edge> tempList; //temp list so we don't modify the original
-        copy(adjList.begin(),adjList.end(), back_inserter(tempList));
-        //sort all edges in a non-decreasing order of their weight
-        sort(tempList.begin(),tempList.end(),comparator);
-        //traverse edges in sorted order
-        int cost = 0, count = 0;
-        for(auto &e : tempList){
-
-            //make sure there is no cycle:
-
-        }
-        
-        //pick the smallest edge
-            //check if it forms a cycle with the spanning tree formed so far
-                //no cycle? include this edge
-                //else? discard it
-        //repeat step two until there are v-1 edges in the spanning tree
-
-    }
-*/
 };
 
 void menu(Graph graph){
     while(true){
         string input;
         cout<<"Bus Network menu:\n";
-        cout<<"[1] Display Bus Stops and Routes\n";
-        cout<<"[2] Test Passenger Route (BFS) \n";
-        cout<<"[3] Test Passenger Route (DFS) \n";
-        cout<<"[0] Exit\n";
+        cout<<"[1] Display Bus Stops and Routes. \n";
+        cout<<"[2] Test Passenger Route (BFS). \n";
+        cout<<"[3] Test Passenger Route (DFS). \n";
+        cout<<"[4] Display Shortest Path from Stop. \n";
+        cout<<"[0] Exit. \n";
         cout<<"Enter your choice: ";
         cin>>input;
         int result = stoi(input);
@@ -199,6 +193,14 @@ void menu(Graph graph){
             cin>>input2;
             int initial = stoi(input2);
             graph.DFS(initial);
+            break;
+        }
+        case 4:{
+            string input2;
+            cout<<"Starting stop: ";
+            cin>>input2;
+            int initial = stoi(input2);
+            graph.printShortestPaths(initial);
             break;
         }
         default:
